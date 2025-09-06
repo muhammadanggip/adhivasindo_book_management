@@ -1,3 +1,7 @@
+# Git Repository
+
+https://github.com/muhammadanggip/adhivasindo_book_management
+
 # Book Management System
 
 Sistem manajemen buku yang komprehensif dibangun dengan Laravel 12.x, dilengkapi dengan API Resources, Swagger Documentation, dan antarmuka web yang modern.
@@ -65,7 +69,7 @@ Sistem manajemen buku yang komprehensif dibangun dengan Laravel 12.x, dilengkapi
 
 1. **Clone repository**
    ```bash
-   git clone https://github.com/yourusername/book-management.git
+   git clone https://github.com/muhammadanggip/adhivasindo_book_management
    cd book-management
    ```
 
@@ -106,7 +110,6 @@ Sistem manajemen buku yang komprehensif dibangun dengan Laravel 12.x, dilengkapi
 7. **Akses aplikasi**
    - Web Interface: http://localhost:8000
    - API Documentation: http://localhost:8000/swagger-ui/
-## Default Users
 
 Setelah menjalankan seeder, Anda dapat login dengan:
 
