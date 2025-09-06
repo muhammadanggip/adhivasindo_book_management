@@ -32,8 +32,7 @@ class BookLoanTest extends TestCase
 
         $response->assertStatus(201)
                 ->assertJsonStructure([
-                    'message',
-                    'loan' => [
+                    'data' => [
                         'user_id',
                         'book_id',
                         'loaned_at',

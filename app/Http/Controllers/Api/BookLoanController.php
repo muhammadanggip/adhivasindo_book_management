@@ -131,7 +131,8 @@ class BookLoanController extends Controller
         // Create the loan
         $user->books()->attach($book->id, [
             'loaned_at' => now(),
-            'expected_return_at' => $validated['expected_return_at'] ?? null,
+            'expected_return_at' => isset($validated['expected_return_at']) && $validated['expected_return_at'] ?
+                \Carbon\Carbon::parse($validated['expected_return_at'])->format('Y-m-d H:i:s') : null,
         ]);
 
         // Dispatch the notification job
@@ -154,7 +155,9 @@ class BookLoanController extends Controller
             ->orderBy('book_loans.created_at', 'desc')
             ->first();
 
-        return (new BookLoanResource($loan))
+        // Convert to object for BookLoanResource
+        $loanObject = (object) $loan;
+        return (new BookLoanResource($loanObject))
             ->response()
             ->setStatusCode(201)
             ->withHeaders([

@@ -79,29 +79,33 @@ class ApiBookLoanResourceTest extends TestCase
 
         $response->assertStatus(201)
                  ->assertJsonStructure([
-                     'id',
-                     'user_id',
-                     'book_id',
-                     'user_name',
-                     'user_email',
-                     'book_title',
-                     'book_author',
-                     'loaned_at',
-                     'expected_return_at',
-                     'returned_at',
-                     'is_returned',
-                     'is_overdue',
-                     'created_at',
-                     'updated_at'
+                     'data' => [
+                         'id',
+                         'user_id',
+                         'book_id',
+                         'user_name',
+                         'user_email',
+                         'book_title',
+                         'book_author',
+                         'loaned_at',
+                         'expected_return_at',
+                         'returned_at',
+                         'is_returned',
+                         'is_overdue',
+                         'created_at',
+                         'updated_at'
+                     ]
                  ])
                  ->assertJson([
-                     'user_id' => $user->id,
-                     'book_id' => $book->id,
-                     'user_name' => $user->name,
-                     'user_email' => $user->email,
-                     'book_title' => $book->title,
-                     'book_author' => $book->author,
-                     'is_returned' => false
+                     'data' => [
+                         'user_id' => $user->id,
+                         'book_id' => $book->id,
+                         'user_name' => $user->name,
+                         'user_email' => $user->email,
+                         'book_title' => $book->title,
+                         'book_author' => $book->author,
+                         'is_returned' => false
+                     ]
                  ]);
     }
 
