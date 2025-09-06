@@ -1,280 +1,202 @@
 # Book Management System
 
-A comprehensive Laravel 12.x API for managing books and book loans with authentication, search functionality, and automated notifications.
+Sistem manajemen buku yang komprehensif dibangun dengan Laravel 12.x, dilengkapi dengan API Resources, Swagger Documentation, dan antarmuka web yang modern.
 
-## Features
+## 🚀 Fitur Utama
 
-### 📚 Book Management
-- **CRUD Operations**: Create, read, update, and delete books
-- **Search & Filter**: Search by title, filter by author and publication year
-- **Validation**: ISBN uniqueness, year validation, stock management
-- **Pagination**: Efficient data loading with pagination
+### 📚 Manajemen Buku
+- CRUD lengkap untuk buku (Create, Read, Update, Delete)
+- Pagination dan pencarian
+- Validasi data (ISBN unik, tahun publikasi, stok minimal)
+- Filter berdasarkan author dan tahun
 
-### 📖 Book Loan System
-- **Many-to-Many Relationship**: Users can borrow multiple books, books can be borrowed by multiple users
-- **Stock Management**: Automatic stock tracking and availability checking
-- **Loan History**: Track loan and return dates
-- **Validation**: Prevent duplicate loans and unavailable book loans
+### 📖 Sistem Peminjaman
+- Relasi many-to-many antara User dan Book
+- Validasi stok otomatis (tidak bisa meminjam jika stok habis)
+- Tanggal pengembalian yang diharapkan
+- Status peminjaman (aktif, dikembalikan, terlambat)
 
-### 🔐 Authentication
-- **Laravel Sanctum**: API token-based authentication
-- **Laravel Breeze**: Complete authentication scaffolding
-- **User Management**: User registration, login, and profile management
+### 🔐 Autentikasi
+- Laravel Breeze untuk autentikasi web
+- Laravel Sanctum untuk API authentication
+- Profile management
+- Email verification
 
-### 🔔 Notifications
-- **Queue System**: Asynchronous email notifications for book loans
-- **Job Processing**: Background job processing for better performance
-- **Logging**: Comprehensive logging for debugging and monitoring
+### 🎨 Antarmuka Modern
+- Bootstrap 5 dengan tema custom
+- Responsive design
+- Select2 untuk dropdown yang dapat dicari
+- Modal konfirmasi untuk aksi berbahaya
+- Icons dan styling modern
+
+### 🔌 API Resources
+- RESTful API endpoints
+- Laravel API Resources untuk response yang konsisten
+- Swagger/OpenAPI documentation
+- Authentication dengan Bearer token
+
+### 📧 Notifikasi
+- Queue system untuk email notifications
+- Job untuk mengirim notifikasi peminjaman
 
 ### 🧪 Testing
-- **Feature Tests**: Complete API endpoint testing
-- **Unit Tests**: Individual component testing
-- **Database Testing**: Test database isolation and cleanup
+- Unit tests dan Feature tests
+- Test coverage untuk semua fitur utama
+- API testing dengan authentication
 
-### 📖 API Documentation
-- **Swagger/OpenAPI**: Interactive API documentation
-- **Resource Transformers**: Consistent API response formatting
-- **Validation Documentation**: Complete request/response schemas
+## 🛠️ Teknologi yang Digunakan
 
-## Installation
+- **Laravel 12.x** - PHP Framework
+- **MySQL** - Database
+- **Bootstrap 5** - CSS Framework
+- **Laravel Breeze** - Authentication scaffolding
+- **Laravel Sanctum** - API authentication
+- **L5-Swagger** - API documentation
+- **Select2** - Enhanced dropdowns
+- **Bootstrap Icons** - Icon library
 
-### Prerequisites
-- PHP 8.2 or higher
+## 📋 Persyaratan Sistem
+
+- PHP >= 8.2
 - Composer
-- MySQL 5.7 or higher
-- Node.js and NPM (for frontend assets)
+- MySQL >= 5.7
+- Node.js & NPM (untuk asset compilation)
 
-### Step 1: Clone the Repository
-```bash
-git clone <repository-url>
-cd book_management
-```
+## 🚀 Instalasi
 
-### Step 2: Install Dependencies
-```bash
-composer install
-npm install
-```
+1. **Clone repository**
+   ```bash
+   git clone https://github.com/yourusername/book-management.git
+   cd book-management
+   ```
 
-### Step 3: Environment Configuration
-```bash
-cp .env.example .env
-php artisan key:generate
-```
+2. **Install dependencies**
+   ```bash
+   composer install
+   npm install
+   ```
 
-Update the `.env` file with your database credentials:
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=book_management
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
-```
+3. **Setup environment**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-### Step 4: Database Setup
-```bash
-php artisan migrate
-php artisan db:seed
-```
+4. **Konfigurasi database**
+   Edit file `.env` dan sesuaikan konfigurasi database:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=book_management
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
+   ```
 
-### Step 5: Generate API Documentation
-```bash
-php artisan l5-swagger:generate
-```
+5. **Jalankan migrasi dan seeder**
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
 
-### Step 6: Start the Development Server
-```bash
-php artisan serve
-```
+6. **Jalankan server**
+   ```bash
+   php artisan serve
+   ```
 
-The application will be available at `http://localhost:8000`
+7. **Akses aplikasi**
+   - Web Interface: http://localhost:8000
+   - API Documentation: http://localhost:8000/api/documentation
 
-## API Endpoints
+## 👥 Default Users
 
-### Authentication
-- `POST /api/register` - Register a new user
-- `POST /api/login` - Login user
-- `POST /api/logout` - Logout user
-- `GET /api/user` - Get authenticated user
+Setelah menjalankan seeder, Anda dapat login dengan:
+
+- **Admin User**: admin@example.com / password
+- **Regular Users**: user1@example.com sampai user10@example.com / password
+
+## 📚 API Endpoints
 
 ### Books
-- `GET /api/books` - List all books (with search/filter)
-- `POST /api/books` - Create a new book
-- `GET /api/books/{id}` - Get a specific book
-- `PUT /api/books/{id}` - Update a book
-- `DELETE /api/books/{id}` - Delete a book
+- `GET /api/books` - List semua buku
+- `POST /api/books` - Tambah buku baru
+- `GET /api/books/{id}` - Detail buku
+- `PUT /api/books/{id}` - Update buku
+- `DELETE /api/books/{id}` - Hapus buku
 
 ### Book Loans
-- `GET /api/loans` - List all loans
-- `POST /api/loans` - Create a new loan
-- `GET /api/loans/{id}` - Get a specific loan
-- `PUT /api/loans/{id}` - Update a loan (return book)
-- `DELETE /api/loans/{id}` - Delete a loan
-- `GET /api/loans/user/{user_id}` - Get loans for a specific user
+- `GET /api/loans` - List semua peminjaman
+- `POST /api/loans` - Buat peminjaman baru
+- `GET /api/loans/{id}` - Detail peminjaman
+- `PUT /api/loans/{id}/return` - Mark sebagai dikembalikan
+- `GET /api/loans/user/{userId}` - Peminjaman per user
 
-## API Usage Examples
+### Authentication
+- `POST /api/login` - Login untuk mendapatkan token
+- `POST /api/logout` - Logout
+- `GET /api/user` - Get user info
 
-### Get Books with Search
-```bash
-curl -X GET "http://localhost:8000/api/books?search=Laravel&author=Taylor&year=2023" \
-  -H "Accept: application/json"
-```
+## 🔧 Testing
 
-### Create a Book
-```bash
-curl -X POST "http://localhost:8000/api/books" \
-  -H "Accept: application/json" \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-    "title": "Laravel: Up & Running",
-    "author": "Matt Stauffer",
-    "published_year": 2023,
-    "isbn": "978-1-492-04068-8",
-    "stock": 5
-  }'
-```
-
-### Loan a Book
-```bash
-curl -X POST "http://localhost:8000/api/loans" \
-  -H "Accept: application/json" \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-    "user_id": 1,
-    "book_id": 1
-  }'
-```
-
-## Database Schema
-
-### Books Table
-```sql
-- id (primary key)
-- title (string)
-- author (string)
-- published_year (year)
-- isbn (string, unique)
-- stock (integer)
-- created_at (timestamp)
-- updated_at (timestamp)
-```
-
-### Book Loans Table
-```sql
-- id (primary key)
-- user_id (foreign key)
-- book_id (foreign key)
-- loaned_at (timestamp)
-- returned_at (timestamp, nullable)
-- created_at (timestamp)
-- updated_at (timestamp)
-```
-
-## Testing
-
-### Run All Tests
+Jalankan semua tests:
 ```bash
 php artisan test
 ```
 
-### Run Specific Test Suites
-```bash
-php artisan test --filter=BookTest
-php artisan test --filter=BookLoanTest
-```
-
-### Test Coverage
+Jalankan tests dengan coverage:
 ```bash
 php artisan test --coverage
 ```
 
-## Queue Processing
+## 📖 Dokumentasi API
 
-### Start Queue Worker
-```bash
-php artisan queue:work
+Dokumentasi API lengkap tersedia di:
+- **Swagger UI**: http://localhost:8000/api/documentation
+- **API Documentation**: Lihat file `API_DOCUMENTATION.md`
+
+## 🎨 Customization
+
+### Mengubah Tema Warna
+Edit file `resources/views/layouts/app.blade.php` dan `resources/views/layouts/guest.blade.php`:
+```css
+:root {
+    --primary-color: #005aa0;
+    --primary-dark: #003d73;
+}
 ```
 
-### Process Failed Jobs
-```bash
-php artisan queue:retry all
-```
+### Menambah Field Baru
+1. Buat migration untuk menambah kolom
+2. Update model dan fillable fields
+3. Update form views
+4. Update API resources
+5. Update tests
 
-## API Documentation
+## 🤝 Contributing
 
-Access the interactive API documentation at:
-- **Swagger UI**: `http://localhost:8000/api/documentation`
+1. Fork repository
+2. Buat feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push ke branch (`git push origin feature/AmazingFeature`)
+5. Buat Pull Request
 
-## Code Quality
+## 📝 License
 
-### Code Style
-```bash
-./vendor/bin/pint
-```
+Distributed under the MIT License. See `LICENSE` for more information.
 
-### Static Analysis
-```bash
-./vendor/bin/phpstan analyse
-```
+## 📞 Support
 
-## Project Structure
+Jika Anda mengalami masalah atau memiliki pertanyaan, silakan buat issue di GitHub repository ini.
 
-```
-app/
-├── Http/
-│   ├── Controllers/
-│   │   └── Api/
-│   │       ├── BookController.php
-│   │       └── BookLoanController.php
-│   └── Resources/
-│       ├── BookResource.php
-│       └── BookLoanResource.php
-├── Jobs/
-│   └── SendBookLoanNotification.php
-├── Models/
-│   ├── Book.php
-│   └── User.php
-database/
-├── factories/
-│   └── BookFactory.php
-├── migrations/
-│   ├── create_books_table.php
-│   └── create_book_loans_table.php
-└── seeders/
-    ├── BookSeeder.php
-    └── UserSeeder.php
-tests/
-├── Feature/
-│   ├── BookTest.php
-│   └── BookLoanTest.php
-```
+## 🙏 Acknowledgments
 
-## Contributing
+- Laravel Framework
+- Bootstrap
+- Laravel Breeze
+- L5-Swagger
+- Select2
+- Bootstrap Icons
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+---
 
-## License
-
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-## Support
-
-For support, email support@example.com or create an issue in the repository.
-
-## Changelog
-
-### Version 1.0.0
-- Initial release
-- Book management system
-- Book loan system
-- Authentication with Laravel Sanctum
-- API documentation with Swagger
-- Comprehensive test suite
-- Queue system for notifications
+**Dibuat dengan ❤️ menggunakan Laravel 12.x**
