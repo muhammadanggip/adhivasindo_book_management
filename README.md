@@ -4,44 +4,43 @@ Sistem manajemen buku yang komprehensif dibangun dengan Laravel 12.x, dilengkapi
 
 ## 🚀 Fitur Utama
 
-### 📚 Manajemen Buku
+### Manajemen Buku
 - CRUD lengkap untuk buku (Create, Read, Update, Delete)
 - Pagination dan pencarian
 - Validasi data (ISBN unik, tahun publikasi, stok minimal)
 - Filter berdasarkan author dan tahun
 
-### 📖 Sistem Peminjaman
+### Sistem Peminjaman
 - Relasi many-to-many antara User dan Book
 - Validasi stok otomatis (tidak bisa meminjam jika stok habis)
 - Tanggal pengembalian yang diharapkan
 - Status peminjaman (aktif, dikembalikan, terlambat)
 
-### 🔐 Autentikasi
+### Autentikasi
 - Laravel Breeze untuk autentikasi web
 - Laravel Sanctum untuk API authentication
 - Profile management
 - Email verification
 
-### 🎨 Antarmuka Modern
+### Antarmuka Modern
 - Bootstrap 5 dengan tema custom
 - Responsive design
 - Select2 untuk dropdown yang dapat dicari
 - Modal konfirmasi untuk aksi berbahaya
 - Icons dan styling modern
 
-### 🔌 API Resources
+### API Resources
 - RESTful API endpoints
 - Laravel API Resources untuk response yang konsisten
 - Swagger/OpenAPI documentation
 - Authentication dengan Bearer token
 
-### 📧 Notifikasi
+### Notifikasi
 - Queue system untuk email notifications
 - Job untuk mengirim notifikasi peminjaman
 
 ### 🧪 Testing
 - Unit tests dan Feature tests
-- Test coverage untuk semua fitur utama
 - API testing dengan authentication
 
 ## 🛠️ Teknologi yang Digunakan
@@ -55,14 +54,14 @@ Sistem manajemen buku yang komprehensif dibangun dengan Laravel 12.x, dilengkapi
 - **Select2** - Enhanced dropdowns
 - **Bootstrap Icons** - Icon library
 
-## 📋 Persyaratan Sistem
+## Persyaratan Sistem
 
 - PHP >= 8.2
 - Composer
 - MySQL >= 5.7
 - Node.js & NPM (untuk asset compilation)
 
-## 🚀 Instalasi
+## Instalasi
 
 1. **Clone repository**
    ```bash
@@ -106,14 +105,13 @@ Sistem manajemen buku yang komprehensif dibangun dengan Laravel 12.x, dilengkapi
 
 7. **Akses aplikasi**
    - Web Interface: http://localhost:8000
-   - API Documentation: http://localhost:8000/api/documentation
-
+   - API Documentation: http://localhost:8000/swagger-ui/
 ## 👥 Default Users
 
 Setelah menjalankan seeder, Anda dapat login dengan:
 
-- **Admin User**: admin@example.com / password
-- **Regular Users**: user1@example.com sampai user10@example.com / password
+- **User/Email**: admin@mail.com
+- **Password**: admin
 
 ## 📚 API Endpoints
 
@@ -143,60 +141,7 @@ Jalankan semua tests:
 php artisan test
 ```
 
-Jalankan tests dengan coverage:
-```bash
-php artisan test --coverage
-```
-
-## 📖 Dokumentasi API
+## Dokumentasi API
 
 Dokumentasi API lengkap tersedia di:
-- **Swagger UI**: http://localhost:8000/api/documentation
-- **API Documentation**: Lihat file `API_DOCUMENTATION.md`
-
-## 🎨 Customization
-
-### Mengubah Tema Warna
-Edit file `resources/views/layouts/app.blade.php` dan `resources/views/layouts/guest.blade.php`:
-```css
-:root {
-    --primary-color: #005aa0;
-    --primary-dark: #003d73;
-}
-```
-
-### Menambah Field Baru
-1. Buat migration untuk menambah kolom
-2. Update model dan fillable fields
-3. Update form views
-4. Update API resources
-5. Update tests
-
-## 🤝 Contributing
-
-1. Fork repository
-2. Buat feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push ke branch (`git push origin feature/AmazingFeature`)
-5. Buat Pull Request
-
-## 📝 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-## 📞 Support
-
-Jika Anda mengalami masalah atau memiliki pertanyaan, silakan buat issue di GitHub repository ini.
-
-## 🙏 Acknowledgments
-
-- Laravel Framework
-- Bootstrap
-- Laravel Breeze
-- L5-Swagger
-- Select2
-- Bootstrap Icons
-
----
-
-**Dibuat dengan ❤️ menggunakan Laravel 12.x**
+- **Swagger UI**: http://localhost:8000/swagger-ui/

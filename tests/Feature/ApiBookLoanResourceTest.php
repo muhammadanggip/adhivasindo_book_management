@@ -127,30 +127,34 @@ class ApiBookLoanResourceTest extends TestCase
 
         $response->assertStatus(200)
                  ->assertJsonStructure([
-                     'id',
-                     'user_id',
-                     'book_id',
-                     'user_name',
-                     'user_email',
-                     'book_title',
-                     'book_author',
-                     'loaned_at',
-                     'expected_return_at',
-                     'returned_at',
-                     'is_returned',
-                     'is_overdue',
-                     'created_at',
-                     'updated_at'
+                     'data' => [
+                         'id',
+                         'user_id',
+                         'book_id',
+                         'user_name',
+                         'user_email',
+                         'book_title',
+                         'book_author',
+                         'loaned_at',
+                         'expected_return_at',
+                         'returned_at',
+                         'is_returned',
+                         'is_overdue',
+                         'created_at',
+                         'updated_at'
+                     ]
                  ])
                  ->assertJson([
-                     'id' => $loanId,
-                     'user_id' => $user->id,
-                     'book_id' => $book->id,
-                     'user_name' => $user->name,
-                     'user_email' => $user->email,
-                     'book_title' => $book->title,
-                     'book_author' => $book->author,
-                     'is_returned' => false
+                     'data' => [
+                         'id' => $loanId,
+                         'user_id' => $user->id,
+                         'book_id' => $book->id,
+                         'user_name' => $user->name,
+                         'user_email' => $user->email,
+                         'book_title' => $book->title,
+                         'book_author' => $book->author,
+                         'is_returned' => false
+                     ]
                  ]);
     }
 
@@ -172,29 +176,33 @@ class ApiBookLoanResourceTest extends TestCase
 
         $response->assertStatus(200)
                  ->assertJsonStructure([
-                     'id',
-                     'user_id',
-                     'book_id',
-                     'user_name',
-                     'user_email',
-                     'book_title',
-                     'book_author',
-                     'loaned_at',
-                     'expected_return_at',
-                     'returned_at',
-                     'is_returned',
-                     'is_overdue',
-                     'created_at',
-                     'updated_at'
+                     'data' => [
+                         'id',
+                         'user_id',
+                         'book_id',
+                         'user_name',
+                         'user_email',
+                         'book_title',
+                         'book_author',
+                         'loaned_at',
+                         'expected_return_at',
+                         'returned_at',
+                         'is_returned',
+                         'is_overdue',
+                         'created_at',
+                         'updated_at'
+                     ]
                  ])
                  ->assertJson([
-                     'id' => $loanId,
-                     'is_returned' => true
+                     'data' => [
+                         'id' => $loanId,
+                         'is_returned' => true
+                     ]
                  ]);
 
         // Verify returned_at is not null
         $data = $response->json();
-        $this->assertNotNull($data['returned_at']);
+        $this->assertNotNull($data['data']['returned_at']);
     }
 
     public function test_loans_resource_shows_overdue_status(): void
@@ -215,9 +223,11 @@ class ApiBookLoanResourceTest extends TestCase
 
         $response->assertStatus(200)
                  ->assertJson([
-                     'id' => $loanId,
-                     'is_returned' => false,
-                     'is_overdue' => true
+                     'data' => [
+                         'id' => $loanId,
+                         'is_returned' => false,
+                         'is_overdue' => true
+                     ]
                  ]);
     }
 
@@ -227,25 +237,20 @@ class ApiBookLoanResourceTest extends TestCase
         $book1 = Book::factory()->create(['stock' => 5]);
         $book2 = Book::factory()->create(['stock' => 3]);
 
-        // Create loans for the user
-        \DB::table('book_loans')->insert([
-            [
-                'user_id' => $user->id,
-                'book_id' => $book1->id,
-                'loaned_at' => now(),
-                'expected_return_at' => now()->addDays(7),
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'user_id' => $user->id,
-                'book_id' => $book2->id,
-                'loaned_at' => now()->subDays(1),
-                'expected_return_at' => now()->addDays(6),
-                'returned_at' => now(),
-                'created_at' => now()->subDays(1),
-                'updated_at' => now()
-            ]
+        // Create loans for the user using Eloquent relationship
+        $user->books()->attach($book1->id, [
+            'loaned_at' => now(),
+            'expected_return_at' => now()->addDays(7)->format('Y-m-d H:i:s'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        $user->books()->attach($book2->id, [
+            'loaned_at' => now()->subDays(1),
+            'expected_return_at' => now()->addDays(6)->format('Y-m-d H:i:s'),
+            'returned_at' => now(),
+            'created_at' => now()->subDays(1),
+            'updated_at' => now()
         ]);
 
         $response = $this->getJson("/api/loans/user/{$user->id}");
@@ -279,6 +284,11 @@ class ApiBookLoanResourceTest extends TestCase
         foreach ($data as $loan) {
             $this->assertEquals($user->id, $loan['user_id']);
             $this->assertEquals($user->name, $loan['user_name']);
+            $this->assertEquals($user->email, $loan['user_email']);
+        }
+    }
+}
+
             $this->assertEquals($user->email, $loan['user_email']);
         }
     }
