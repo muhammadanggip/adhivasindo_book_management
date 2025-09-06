@@ -2,7 +2,7 @@
 
 Sistem manajemen buku yang komprehensif dibangun dengan Laravel 12.x, dilengkapi dengan API Resources, Swagger Documentation, dan antarmuka web yang modern.
 
-## 🚀 Fitur Utama
+## Fitur Utama
 
 ### Manajemen Buku
 - CRUD lengkap untuk buku (Create, Read, Update, Delete)
@@ -39,11 +39,11 @@ Sistem manajemen buku yang komprehensif dibangun dengan Laravel 12.x, dilengkapi
 - Queue system untuk email notifications
 - Job untuk mengirim notifikasi peminjaman
 
-### 🧪 Testing
+### Testing
 - Unit tests dan Feature tests
 - API testing dengan authentication
 
-## 🛠️ Teknologi yang Digunakan
+## Teknologi yang Digunakan
 
 - **Laravel 12.x** - PHP Framework
 - **MySQL** - Database
@@ -106,14 +106,14 @@ Sistem manajemen buku yang komprehensif dibangun dengan Laravel 12.x, dilengkapi
 7. **Akses aplikasi**
    - Web Interface: http://localhost:8000
    - API Documentation: http://localhost:8000/swagger-ui/
-## 👥 Default Users
+## Default Users
 
 Setelah menjalankan seeder, Anda dapat login dengan:
 
 - **User/Email**: admin@mail.com
 - **Password**: admin
 
-## 📚 API Endpoints
+## API Endpoints
 
 ### Books
 - `GET /api/books` - List semua buku
@@ -134,7 +134,7 @@ Setelah menjalankan seeder, Anda dapat login dengan:
 - `POST /api/logout` - Logout
 - `GET /api/user` - Get user info
 
-## 🔧 Testing
+## Testing
 
 Jalankan semua tests:
 ```bash
