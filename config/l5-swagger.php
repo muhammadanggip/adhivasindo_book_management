@@ -13,7 +13,7 @@ return [
                 'middleware' => [
                     'api' => [],
                     'asset' => [],
-                    'docs' => [],
+                    'docs' => ['web'],
                     'oauth2_callback' => [],
                 ],
                 'group_options' => [],
