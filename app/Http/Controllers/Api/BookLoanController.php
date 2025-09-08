@@ -350,23 +350,26 @@ class BookLoanController extends Controller
      */
     public function userLoans(int $userId)
     {
-        $user = User::findOrFail($userId);
+        // Check if user exists
+        $user = User::find($userId);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
 
-        $loans = $user->books()
-            ->withPivot(['loaned_at', 'returned_at'])
-            ->get()
-            ->map(function ($book) {
-                return [
-                    'id' => $book->pivot->id,
-                    'book_id' => $book->id,
-                    'title' => $book->title,
-                    'author' => $book->author,
-                    'isbn' => $book->isbn,
-                    'loaned_at' => $book->pivot->loaned_at,
-                    'returned_at' => $book->pivot->returned_at,
-                    'is_returned' => !is_null($book->pivot->returned_at),
-                ];
-            });
+        // Get loans for specific user using the same query structure as index
+        $loans = DB::table('book_loans')
+            ->join('users', 'book_loans.user_id', '=', 'users.id')
+            ->join('books', 'book_loans.book_id', '=', 'books.id')
+            ->select(
+                'book_loans.*',
+                'users.name as user_name',
+                'users.email as user_email',
+                'books.title as book_title',
+                'books.author as book_author'
+            )
+            ->where('book_loans.user_id', $userId)
+            ->orderBy('book_loans.created_at', 'desc')
+            ->get();
 
         return BookLoanResource::collection($loans);
     }
