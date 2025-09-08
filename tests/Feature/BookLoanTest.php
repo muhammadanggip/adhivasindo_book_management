@@ -64,7 +64,7 @@ class BookLoanTest extends TestCase
 
         $response->assertStatus(400)
                 ->assertJson([
-                    'message' => 'Book is not available for loan'
+                    'message' => 'Book is not available for loan. All copies are currently borrowed.'
                 ]);
     }
 

@@ -288,8 +288,3 @@ class ApiBookLoanResourceTest extends TestCase
         }
     }
 }
-
-            $this->assertEquals($user->email, $loan['user_email']);
-        }
-    }
-}
